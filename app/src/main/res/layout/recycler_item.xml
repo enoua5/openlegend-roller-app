@@ -12,11 +12,34 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:id="@+id/riTxtCharacterName"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:id="@+id/riTxtCharacterName"
+                android:text="Name"/>
+
+            <TextView
+                android:id="@+id/riTxtCharacterLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5sp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:text="level 0"/>
+
+            <TextView
+                android:id="@+id/riTxtCharacterClass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2sp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:text="class"/>
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

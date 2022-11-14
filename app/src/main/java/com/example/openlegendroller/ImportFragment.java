@@ -23,12 +23,15 @@ import com.example.openlegendroller.db.CharacterDAO;
 public class ImportFragment extends DialogFragment {
 
     View view;
+    ImportFragment backref;
 
     private GetHeroMusterCharacter task;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        backref = this;
+
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_import, container, false);
 
@@ -49,6 +52,7 @@ public class ImportFragment extends DialogFragment {
                             public void run() {
                                 CharacterDAO dao = AppDatabase.getInstance(getActivity().getApplicationContext()).characterDAO();
                                 dao.insert(character);
+                                backref
                             }
                         }).start();
                     }

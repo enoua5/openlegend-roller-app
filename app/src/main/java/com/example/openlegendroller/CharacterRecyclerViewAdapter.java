@@ -36,7 +36,7 @@ public class CharacterRecyclerViewAdapter extends RecyclerView.Adapter<Character
         public View root;
         public Character character;
 
-        public TextView characterNameBox;
+        public TextView characterNameBox, characterLevelBox, characterClassBox;
 
         public ViewHolder(@NonNull View itemView)
         {
@@ -44,6 +44,8 @@ public class CharacterRecyclerViewAdapter extends RecyclerView.Adapter<Character
             root = itemView;
 
             characterNameBox = root.findViewById(R.id.riTxtCharacterName);
+            characterLevelBox = root.findViewById(R.id.riTxtCharacterLevel);
+            characterClassBox = root.findViewById(R.id.riTxtCharacterClass);
         }
     }
 
@@ -64,6 +66,8 @@ public class CharacterRecyclerViewAdapter extends RecyclerView.Adapter<Character
         if(character != null)
         {
             holder.characterNameBox.setText(character.name);
+            holder.characterLevelBox.setText("Level "+character.level);
+            holder.characterClassBox.setText(character.archetype);
 
             holder.root.setOnClickListener(new View.OnClickListener() {
                 @Override
