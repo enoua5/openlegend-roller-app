@@ -52,7 +52,7 @@ public class ImportFragment extends DialogFragment {
                             public void run() {
                                 CharacterDAO dao = AppDatabase.getInstance(getActivity().getApplicationContext()).characterDAO();
                                 dao.insert(character);
-                                backref
+                                backref.dismiss();
                             }
                         }).start();
                     }

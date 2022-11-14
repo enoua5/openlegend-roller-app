@@ -27,6 +27,7 @@ public class CharacterRecyclerViewAdapter extends RecyclerView.Adapter<Character
 
     public void addItems(List<Character> characters)
     {
+        this.characterList.clear();
         this.characterList.addAll(characters);
         notifyDataSetChanged();
     }
