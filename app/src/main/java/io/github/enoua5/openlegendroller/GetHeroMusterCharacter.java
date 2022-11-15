@@ -1,9 +1,9 @@
-package com.example.openlegendroller;
+package io.github.enoua5.openlegendroller;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.openlegendroller.db.Character;
+import io.github.enoua5.openlegendroller.db.Character;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -11,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.Buffer;
 import java.util.Map;
 
 public class GetHeroMusterCharacter extends AsyncTask<String, Integer, String> {

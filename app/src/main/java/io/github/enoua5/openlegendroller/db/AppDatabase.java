@@ -1,4 +1,4 @@
-package com.example.openlegendroller.db;
+package io.github.enoua5.openlegendroller.db;
 
 import androidx.room.Database;
 import androidx.room.Room;

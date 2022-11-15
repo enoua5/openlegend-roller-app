@@ -5,4 +5,6 @@
     <string name="new_character">New</string>
     <string name="import_character">Import</string>
     <string name="import_dialog_title">Import character from HeroMuster</string>
+    <string name="attributes">Attributes</string>
+    <string name="roll">Roll</string>
 </resources>

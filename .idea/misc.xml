@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_roll.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21406727828746178" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragement_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_character_details.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_character_list.xml" value="0.1962890625" />
         <entry key="app/src/main/res/layout/fragment_import.xml" value="0.1497326203208556" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.22" />

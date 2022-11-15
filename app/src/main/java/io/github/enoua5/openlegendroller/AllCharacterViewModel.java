@@ -1,12 +1,12 @@
-package com.example.openlegendroller;
+package io.github.enoua5.openlegendroller;
 
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.openlegendroller.db.AppDatabase;
-import com.example.openlegendroller.db.Character;
+import io.github.enoua5.openlegendroller.db.AppDatabase;
+import io.github.enoua5.openlegendroller.db.Character;
 
 import java.util.List;
 

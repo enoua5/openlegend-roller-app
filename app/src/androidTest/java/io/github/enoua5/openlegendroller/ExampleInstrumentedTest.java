@@ -1,4 +1,4 @@
-package com.example.openlegendroller;
+package io.github.enoua5.openlegendroller;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.openlegendroller", appContext.getPackageName());
+        assertEquals("io.github.enoua5.openlegendroller", appContext.getPackageName());
     }
 }

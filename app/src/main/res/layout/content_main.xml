@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fragment"
-    android:name="com.example.openlegendroller.CharacterListFragment"
+    android:name="io.github.enoua5.openlegendroller.CharacterListFragment"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:layout="@layout/fragment_main"
     android:layout_margin="10dp"

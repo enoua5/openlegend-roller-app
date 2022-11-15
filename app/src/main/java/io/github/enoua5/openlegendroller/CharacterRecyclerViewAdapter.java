@@ -1,4 +1,4 @@
-package com.example.openlegendroller;
+package io.github.enoua5.openlegendroller;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,9 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.openlegendroller.db.Character;
-
-import org.w3c.dom.Text;
+import io.github.enoua5.openlegendroller.db.Character;
 
 import java.util.List;
 
@@ -73,18 +71,18 @@ public class CharacterRecyclerViewAdapter extends RecyclerView.Adapter<Character
             holder.root.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Bundle bundle = new Bundle();
-//                    bundle.putInt("course_pk", course.getId());
-//                    CourseDetailsFragment courseDetailsFragment = new CourseDetailsFragment();
-//                    courseDetailsFragment.setArguments(bundle);
-//
-//                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
-//                    activity.getSupportFragmentManager()
-//                            .beginTransaction()
-//                            .add(android.R.id.content, courseDetailsFragment)
-//                            .addToBackStack(null)
-//                            .commit()
-//                    ;
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("char_pk", character.id);
+                    CharacterDetailsFragment characterDetailsFragment = new CharacterDetailsFragment();
+                    characterDetailsFragment.setArguments(bundle);
+
+                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    activity.getSupportFragmentManager()
+                            .beginTransaction()
+                            .add(android.R.id.content, characterDetailsFragment)
+                            .addToBackStack(null)
+                            .commit()
+                    ;
                 }
             });
         }

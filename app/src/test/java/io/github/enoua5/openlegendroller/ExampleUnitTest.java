@@ -1,4 +1,4 @@
-package com.example.openlegendroller;
+package io.github.enoua5.openlegendroller;
 
 import org.junit.Test;
 

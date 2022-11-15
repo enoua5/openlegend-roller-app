@@ -1,11 +1,10 @@
-package com.example.openlegendroller;
+package io.github.enoua5.openlegendroller;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,9 +15,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.openlegendroller.db.AppDatabase;
-import com.example.openlegendroller.db.Character;
-import com.example.openlegendroller.db.CharacterDAO;
+import io.github.enoua5.openlegendroller.db.AppDatabase;
+import io.github.enoua5.openlegendroller.db.Character;
+import io.github.enoua5.openlegendroller.db.CharacterDAO;
 
 public class ImportFragment extends DialogFragment {
 

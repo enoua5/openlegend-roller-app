@@ -6,7 +6,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.openlegendroller"
+        applicationId "io.github.enoua5.openlegendroller"
         minSdk 21
         targetSdk 32
         versionCode 1
