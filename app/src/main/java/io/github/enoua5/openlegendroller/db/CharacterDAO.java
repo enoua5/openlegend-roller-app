@@ -11,7 +11,7 @@ import java.util.List;
 
 @Dao
 public interface CharacterDAO {
-    @Query("select * from Character")
+    @Query("select * from Character order by last_updated desc")
     LiveData<List<Character>> getAll();
 
     @Query("select * from Character where id = :id")

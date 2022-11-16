@@ -1,5 +1,8 @@
 package io.github.enoua5.openlegendroller;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,8 +13,12 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
@@ -111,5 +118,63 @@ public class CharacterDetailsFragment extends DialogFragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        menu.clear();
+        getActivity().getMenuInflater().inflate(R.menu.menu_character_details, menu);
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        return dialog;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId())
+        {
+            case android.R.id.home:
+                dismiss();
+                break;
+            case R.id.menu_delete:
+                boolean deleteConfirm = false;
+
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Delete Confirmation")
+                        .setMessage("Are you sure you want to delete "+character.name+"?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        AppDatabase.getInstance(getContext())
+                                                   .characterDAO()
+                                                   .delete(character)
+                                        ;
+                                        dismiss();
+                                    }
+                                }).start();
+                            }
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show()
+                ;
+                break;
+            case R.id.menu_edit:
+                Bundle bundle = new Bundle();
+                bundle.putInt("char_pk", character.id);
+                // TODO
+                break;
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -10,6 +10,12 @@ public class Character {
     public int id;
     public boolean edited_in_app = true;
     public String heromuster_id;
+    public long last_updated;
+
+    public Character()
+    {
+        last_updated = System.currentTimeMillis();
+    }
 
     // Character info
     public String name;
