@@ -35,7 +35,6 @@ import io.github.enoua5.openlegendroller.db.Character.Attribute;
 public class CharacterDetailsFragment extends DialogFragment {
 
     // TODO hook in the roll buttons to functionality
-    // TODO perhaps make this page load in all those attribute lines automatically
     // TODO for HeroMuster characters, perhaps have a "reimport" button
 
     Attribute[] sectionStarts = {Attribute.Agility, Attribute.Learning, Attribute.Deception, Attribute.Alteration};
