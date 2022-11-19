@@ -31,33 +31,12 @@ import io.github.enoua5.openlegendroller.R;
 import io.github.enoua5.openlegendroller.db.AppDatabase;
 import io.github.enoua5.openlegendroller.db.Character;
 import io.github.enoua5.openlegendroller.db.Character.Attribute;
+import io.github.enoua5.openlegendroller.db.Character.AttributeInfo;
 
 public class CharacterDetailsFragment extends DialogFragment {
 
     // TODO hook in the roll buttons to functionality
     // TODO for HeroMuster characters, perhaps have a "reimport" button
-
-    Attribute[] sectionStarts = {Attribute.Agility, Attribute.Learning, Attribute.Deception, Attribute.Alteration};
-    String[] sectionHeadings = {"Physical", "Mental", "Social", "Extraordinary"};
-
-    private class AttributeInfo
-    {
-        TextView value_display;
-        int value;
-        Attribute for_attr;
-
-        AttributeInfo(Attribute for_attr)
-        {
-            this.for_attr = for_attr;
-            this.value = 0;
-        }
-
-        void setValue(int value)
-        {
-            this.value = value;
-            value_display.setText(String.valueOf(value));
-        }
-    }
 
     final AttributeInfo[] stats = {
             new AttributeInfo(Attribute.Agility),
@@ -101,10 +80,10 @@ public class CharacterDetailsFragment extends DialogFragment {
         int section = 0;
         for(AttributeInfo attr : stats)
         {
-            if(section < sectionStarts.length && attr.for_attr == sectionStarts[section])
+            if(section < Character.sectionStarts.length && attr.for_attr == Character.sectionStarts[section])
             {
                 TextView head = new TextView(getContext());
-                head.setText(sectionHeadings[section]);
+                head.setText(Character.sectionHeadings[section]);
                 TextViewCompat.setTextAppearance(head, androidx.appcompat.R.style.Base_TextAppearance_AppCompat_Subhead);
 
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
