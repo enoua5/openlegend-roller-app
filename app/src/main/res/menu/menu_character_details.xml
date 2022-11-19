@@ -3,10 +3,18 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:title="Copy"
+        app:showAsAction="always"
+        android:id="@+id/menu_copy"
+        android:icon="@drawable/ic_baseline_file_copy_24"
+
+        />
+
+    <item
         android:title="Edit"
         app:showAsAction="always"
         android:id="@+id/menu_edit"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:icon="@drawable/ic_baseline_edit_24"
 
         />
 
@@ -14,7 +22,7 @@
         android:title="Delete"
         app:showAsAction="always"
         android:id="@+id/menu_delete"
-        android:icon="@android:drawable/ic_menu_delete"
+        android:icon="@drawable/ic_baseline_delete_24"
 
         />
 

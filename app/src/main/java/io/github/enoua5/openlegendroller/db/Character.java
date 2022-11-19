@@ -8,6 +8,30 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Character {
 
+    public Character(Character original)
+    {
+        // get the last_updated time to be now
+        this();
+        // we don't copy over the ID, we want this to be a new one
+        edited_in_app = original.edited_in_app;
+        heromuster_id = original.heromuster_id;
+        // don't copy over last updated either
+        name = original.name;
+        archetype = original.archetype;
+        level = original.level;
+
+        for(Attribute attr : Attribute.values())
+        {
+            setAttr(attr, original.getAttr(attr));
+        }
+
+        destructive_trance = original.destructive_trance;
+        vicious_strike = original.vicious_strike;
+
+        name = original.name;
+        archetype = original.archetype;
+    }
+
     public enum Attribute
     {
         Agility, Fortitude, Might, Learning, Logic, Perception,

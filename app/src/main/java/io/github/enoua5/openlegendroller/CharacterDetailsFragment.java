@@ -212,6 +212,35 @@ public class CharacterDetailsFragment extends DialogFragment {
                 dismiss();
 
                 break;
+            case R.id.menu_copy:
+                boolean copyConfirm = false;
+
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Copy Confirmation")
+                        .setMessage("Are you sure you want to copy "+character.name+"?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Character newCharacter = new Character(character);
+
+                                        AppDatabase.getInstance(getContext())
+                                                .characterDAO()
+                                                .insert(newCharacter)
+                                        ;
+                                        dismiss();
+                                    }
+                                }).start();
+                            }
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show()
+                ;
+
+                break;
         }
 
 
