@@ -9,7 +9,7 @@ public class Character {
     @PrimaryKey(autoGenerate = true)
     public int id;
     public boolean edited_in_app = true;
-    public String heromuster_id;
+    public String heromuster_id = null;
     public long last_updated;
 
     public Character()

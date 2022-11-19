@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Open Legend Roller</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="new_character">New</string>
     <string name="import_character">Import</string>

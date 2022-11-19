@@ -33,5 +33,17 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show(fm, null);
             }
         });
+
+        Button add_button = findViewById(R.id.btn_add_char);
+        add_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fm.beginTransaction()
+                        .add(android.R.id.content, new EditCharacterFragment())
+                        .addToBackStack(null)
+                        .commit()
+                ;
+            }
+        });
     }
 }

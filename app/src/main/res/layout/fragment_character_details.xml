@@ -36,7 +36,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
                 android:id="@+id/detailTxtName"
                 android:text="Name"/>
 

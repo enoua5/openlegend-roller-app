@@ -29,6 +29,10 @@ import io.github.enoua5.openlegendroller.db.Character;
 
 public class CharacterDetailsFragment extends DialogFragment {
 
+    // TODO hook in the roll buttons to functionality
+    // TODO perhaps make this page load in all those attribute lines automatically
+    // TODO for HeroMuster characters, perhaps have a "reimport" button
+
     View view;
     Toolbar toolbar;
     private TextView txtName, txtLevel, txtClass, txtAgility, txtFortitude, txtMight, txtLearning,
@@ -100,7 +104,7 @@ public class CharacterDetailsFragment extends DialogFragment {
                     txtPerception.setText(character.perception+"");
                     txtWill.setText(character.will+"");
                     txtDeception.setText(character.deception+"");
-                    txtPersuasion.setText(character.perception+"");
+                    txtPersuasion.setText(character.persuasion+"");
                     txtPresence.setText(character.presence+"");
                     txtAlteration.setText(character.alteration+"");
                     txtCreation.setText(character.creation+"");
@@ -170,7 +174,19 @@ public class CharacterDetailsFragment extends DialogFragment {
             case R.id.menu_edit:
                 Bundle bundle = new Bundle();
                 bundle.putInt("char_pk", character.id);
-                // TODO
+
+                EditCharacterFragment editCharacterFragment = new EditCharacterFragment();
+                editCharacterFragment.setArguments(bundle);
+
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(android.R.id.content, editCharacterFragment)
+                        .addToBackStack(null)
+                        .commit()
+                ;
+                dismiss();
+
                 break;
         }
 
