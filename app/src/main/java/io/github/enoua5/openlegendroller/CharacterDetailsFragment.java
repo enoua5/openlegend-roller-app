@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
@@ -32,11 +33,11 @@ import io.github.enoua5.openlegendroller.db.AppDatabase;
 import io.github.enoua5.openlegendroller.db.Character;
 import io.github.enoua5.openlegendroller.db.Character.Attribute;
 import io.github.enoua5.openlegendroller.db.Character.AttributeInfo;
+import io.github.enoua5.openlegendroller.db.CharacterDAO;
 
 public class CharacterDetailsFragment extends DialogFragment {
 
     // TODO hook in the roll buttons to functionality
-    // TODO for HeroMuster characters, perhaps have a "reimport" button
 
     final AttributeInfo[] stats = {
             new AttributeInfo(Attribute.Agility),
@@ -62,8 +63,11 @@ public class CharacterDetailsFragment extends DialogFragment {
     View view;
     Toolbar toolbar;
     private TextView txtName, txtLevel, txtClass, txtVS, txtDT;
+    private Button btn_reimport;
     Character character;
     int char_pk;
+
+    private GetHeroMusterCharacter task;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,6 +79,7 @@ public class CharacterDetailsFragment extends DialogFragment {
         txtClass = view.findViewById(R.id.detailTxtClass);
         txtVS = view.findViewById(R.id.detailTxtViciousStrike);
         txtDT = view.findViewById(R.id.detailTxtDestructiveTrance);
+        btn_reimport = view.findViewById(R.id.btn_reimport);
 
         ViewGroup attr_list = view.findViewById(R.id.attribute_list_box);
         int section = 0;
@@ -119,6 +124,7 @@ public class CharacterDetailsFragment extends DialogFragment {
         {
             char_pk = bundle.getInt("char_pk");
 
+            // ALL HAIL THE TRIANGLE OF DOOM
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -139,10 +145,24 @@ public class CharacterDetailsFragment extends DialogFragment {
                     
                     txtVS.setText((character.vicious_strike ? "Has" : "Does not have") + " Vicious Strike");
                     txtDT.setText((character.destructive_trance? "Has" : "Does not have") + " Destructive Trance");
+
+
+
+                    if(character.heromuster_id == null || character.heromuster_id.isEmpty())
+                    {
+                        btn_reimport.setVisibility(View.INVISIBLE);
+                    }
+                    else
+                    {
+                        btn_reimport.setVisibility(View.VISIBLE);
+
+
+                        setReimportButton(btn_reimport);
+                    }
+
                 }
             }).start();
         }
-
 
         return view;
     }
@@ -245,5 +265,76 @@ public class CharacterDetailsFragment extends DialogFragment {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // sins below
+
+    private void setReimportButton(Button button)
+    {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Copy Confirmation")
+                        .setMessage("Are you sure you want to re-import " + character.heromuster_id + " as a copy?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        task = new GetHeroMusterCharacter();
+                                        String char_id = character.heromuster_id;
+                                        task.execute(char_id);
+
+                                        task.setOnCharacterImportListener(new GetHeroMusterCharacter.OnCharacterImport() {
+                                            @Override
+                                            public void characterImportComplete(Character character) {
+                                                Log.d("GetCharacter", "Import complete");
+                                                new Thread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        CharacterDAO dao = AppDatabase.getInstance(getActivity().getApplicationContext()).characterDAO();
+                                                        dao.insert(character);
+                                                        dismiss();
+                                                    }
+                                                }).start();
+                                            }
+
+                                            @Override
+                                            public void characterImportFailed(String message) {
+                                                Log.d("GetCharacter", "Import failed");
+                                                new Thread() {
+                                                    public void run() {
+                                                        getActivity().runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                new AlertDialog.Builder(getContext())
+                                                                        .setTitle("Failed to import character")
+                                                                        .setMessage(message)
+                                                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                                            @Override
+                                                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                                                dialogInterface.cancel();
+                                                                            }
+                                                                        })
+                                                                        .show();
+                                                            }
+                                                        });
+                                                    }
+                                                }.start();
+                                            }
+                                        });
+                                    }
+                                }).start();
+                            }
+                        })
+                        .setNegativeButton("Cancel", null)
+                        .show()
+                ;
+
+            }
+        });
     }
 }

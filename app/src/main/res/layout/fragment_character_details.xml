@@ -62,6 +62,12 @@
                     android:text="Class"/>
             </LinearLayout>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reimport"
+                android:id="@+id/btn_reimport"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
