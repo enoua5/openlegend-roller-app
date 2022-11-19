@@ -9,9 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +21,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
@@ -26,6 +30,7 @@ import io.github.enoua5.openlegendroller.R;
 
 import io.github.enoua5.openlegendroller.db.AppDatabase;
 import io.github.enoua5.openlegendroller.db.Character;
+import io.github.enoua5.openlegendroller.db.Character.Attribute;
 
 public class CharacterDetailsFragment extends DialogFragment {
 
@@ -33,12 +38,52 @@ public class CharacterDetailsFragment extends DialogFragment {
     // TODO perhaps make this page load in all those attribute lines automatically
     // TODO for HeroMuster characters, perhaps have a "reimport" button
 
+    Attribute[] sectionStarts = {Attribute.Agility, Attribute.Learning, Attribute.Deception, Attribute.Alteration};
+    String[] sectionHeadings = {"Physical", "Mental", "Social", "Extraordinary"};
+
+    private class AttributeInfo
+    {
+        TextView value_display;
+        int value;
+        Attribute for_attr;
+
+        AttributeInfo(Attribute for_attr)
+        {
+            this.for_attr = for_attr;
+            this.value = 0;
+        }
+
+        void setValue(int value)
+        {
+            this.value = value;
+            value_display.setText(String.valueOf(value));
+        }
+    }
+
+    final AttributeInfo[] stats = {
+            new AttributeInfo(Attribute.Agility),
+            new AttributeInfo(Attribute.Fortitude),
+            new AttributeInfo(Attribute.Might),
+            new AttributeInfo(Attribute.Learning),
+            new AttributeInfo(Attribute.Logic),
+            new AttributeInfo(Attribute.Perception),
+            new AttributeInfo(Attribute.Will),
+            new AttributeInfo(Attribute.Deception),
+            new AttributeInfo(Attribute.Persuasion),
+            new AttributeInfo(Attribute.Presence),
+            new AttributeInfo(Attribute.Alteration),
+            new AttributeInfo(Attribute.Creation),
+            new AttributeInfo(Attribute.Energy),
+            new AttributeInfo(Attribute.Entropy),
+            new AttributeInfo(Attribute.Influence),
+            new AttributeInfo(Attribute.Movement),
+            new AttributeInfo(Attribute.Prescience),
+            new AttributeInfo(Attribute.Protection)
+    };
+    
     View view;
     Toolbar toolbar;
-    private TextView txtName, txtLevel, txtClass, txtAgility, txtFortitude, txtMight, txtLearning,
-                     txtLogic, txtPerception, txtWill, txtDeception, txtPersuasion, txtPresence,
-                     txtAlteration, txtCreation, txtEnergy, txtEntropy, txtInfluence, txtMovement,
-                     txtPrescience, txtProtection, txtVS, txtDT;
+    private TextView txtName, txtLevel, txtClass, txtVS, txtDT;
     Character character;
     int char_pk;
 
@@ -50,26 +95,37 @@ public class CharacterDetailsFragment extends DialogFragment {
         txtName = view.findViewById(R.id.detailTxtName);
         txtLevel = view.findViewById(R.id.detailTxtLevel);
         txtClass = view.findViewById(R.id.detailTxtClass);
-        txtAgility = view.findViewById(R.id.detailTxtAgility);
-        txtFortitude = view.findViewById(R.id.detailTxtFortitude);
-        txtMight = view.findViewById(R.id.detailTxtMight);
-        txtLearning = view.findViewById(R.id.detailTxtLearning);
-        txtLogic = view.findViewById(R.id.detailTxtLogic);
-        txtPerception = view.findViewById(R.id.detailTxtPerception);
-        txtWill = view.findViewById(R.id.detailTxtWill);
-        txtDeception = view.findViewById(R.id.detailTxtDeception);
-        txtPersuasion = view.findViewById(R.id.detailTxtPersuasion);
-        txtPresence = view.findViewById(R.id.detailTxtPresence);
-        txtAlteration = view.findViewById(R.id.detailTxtAlteration);
-        txtCreation = view.findViewById(R.id.detailTxtCreation);
-        txtEnergy = view.findViewById(R.id.detailTxtEnergy);
-        txtEntropy = view.findViewById(R.id.detailTxtEntropy);
-        txtInfluence = view.findViewById(R.id.detailTxtInfluence);
-        txtMovement = view.findViewById(R.id.detailTxtMovement);
-        txtPrescience = view.findViewById(R.id.detailTxtPrescience);
-        txtProtection = view.findViewById(R.id.detailTxtProtection);
         txtVS = view.findViewById(R.id.detailTxtViciousStrike);
         txtDT = view.findViewById(R.id.detailTxtDestructiveTrance);
+
+        ViewGroup attr_list = view.findViewById(R.id.attribute_list_box);
+        int section = 0;
+        for(AttributeInfo attr : stats)
+        {
+            if(section < sectionStarts.length && attr.for_attr == sectionStarts[section])
+            {
+                TextView head = new TextView(getContext());
+                head.setText(sectionHeadings[section]);
+                TextViewCompat.setTextAppearance(head, androidx.appcompat.R.style.Base_TextAppearance_AppCompat_Subhead);
+
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.setMargins(0, 100, 0, 20);
+                head.setLayoutParams(params);
+
+                attr_list.addView(head);
+
+                section++;
+            }
+
+            View attr_view = inflater.inflate(R.layout.attribute_detail_item, null);
+
+            TextView attr_name_box = attr_view.findViewById(R.id.attribute_name);
+            attr_name_box.setText(attr.for_attr.name());
+
+            attr.value_display = attr_view.findViewById(R.id.attribute_value);
+
+            attr_list.addView(attr_view);
+        }
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
@@ -96,24 +152,13 @@ public class CharacterDetailsFragment extends DialogFragment {
                     txtName.setText(character.name);
                     txtLevel.setText("Level "+character.level);
                     txtClass.setText(character.archetype+"");
-                    txtAgility.setText(character.agility+"");
-                    txtFortitude.setText(character.fortitude+"");
-                    txtMight.setText(character.might+"");
-                    txtLearning.setText(character.learning+"");
-                    txtLogic.setText(character.logic+"");
-                    txtPerception.setText(character.perception+"");
-                    txtWill.setText(character.will+"");
-                    txtDeception.setText(character.deception+"");
-                    txtPersuasion.setText(character.persuasion+"");
-                    txtPresence.setText(character.presence+"");
-                    txtAlteration.setText(character.alteration+"");
-                    txtCreation.setText(character.creation+"");
-                    txtEnergy.setText(character.energy+"");
-                    txtEntropy.setText(character.entropy+"");
-                    txtInfluence.setText(character.influence+"");
-                    txtMovement.setText(character.movement+"");
-                    txtPrescience.setText(character.prescience+"");
-                    txtProtection.setText(character.protection+"");
+
+                    for(AttributeInfo stat : stats)
+                    {
+                        stat.setValue(character.getAttr(stat.for_attr));
+                    }
+                    
+                    
                     txtVS.setText((character.vicious_strike ? "Has" : "Does not have") + " Vicious Strike");
                     txtDT.setText((character.destructive_trance? "Has" : "Does not have") + " Destructive Trance");
                 }
@@ -174,6 +219,7 @@ public class CharacterDetailsFragment extends DialogFragment {
             case R.id.menu_edit:
                 Bundle bundle = new Bundle();
                 bundle.putInt("char_pk", character.id);
+                Log.d("CharEdit",character.id+"");
 
                 EditCharacterFragment editCharacterFragment = new EditCharacterFragment();
                 editCharacterFragment.setArguments(bundle);

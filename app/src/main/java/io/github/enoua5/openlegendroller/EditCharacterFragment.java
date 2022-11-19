@@ -27,6 +27,8 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import io.github.enoua5.openlegendroller.db.AppDatabase;
 import io.github.enoua5.openlegendroller.db.Character;
+import io.github.enoua5.openlegendroller.db.Character.Attribute;
+import io.github.enoua5.openlegendroller.db.Character.AttributeInfo;
 
 public class EditCharacterFragment extends DialogFragment {
 
@@ -34,51 +36,6 @@ public class EditCharacterFragment extends DialogFragment {
     Toolbar toolbar;
     Character character;
     boolean already_exists;
-
-    private enum Attribute
-    {
-        Agility, Fortitude, Might, Learning, Logic, Perception,
-        Will, Deception, Persuasion, Presence, Alteration, Creation,
-        Energy, Entropy, Influence, Movement, Prescience, Protection
-    }
-
-    Attribute[] sectionStarts = {Attribute.Agility, Attribute.Learning, Attribute.Deception, Attribute.Alteration};
-    String[] sectionHeadings = {"Physical", "Mental", "Social", "Extraordinary"};
-
-    private class AttributeInfo
-    {
-        TextView value_display;
-        int value;
-        Attribute for_attr;
-
-        AttributeInfo(Attribute for_attr)
-        {
-            this.for_attr = for_attr;
-            this.value = 0;
-        }
-
-        void increment()
-        {
-            if(value < 10)
-                value ++;
-
-            value_display.setText(String.valueOf(value));
-        }
-
-        void decrement()
-        {
-            if(value > 0)
-                value --;
-
-            value_display.setText(String.valueOf(value));
-        }
-
-        void setValue(int value)
-        {
-            this.value = value;
-            value_display.setText(String.valueOf(value));
-        }
-    }
 
     final AttributeInfo[] stats = {
             new AttributeInfo(Attribute.Agility),
@@ -129,10 +86,10 @@ public class EditCharacterFragment extends DialogFragment {
         int section = 0;
         for(AttributeInfo attr : stats)
         {
-            if(section < sectionStarts.length && attr.for_attr == sectionStarts[section])
+            if(section < Character.sectionStarts.length && attr.for_attr == Character.sectionStarts[section])
             {
                 TextView head = new TextView(getContext());
-                head.setText(sectionHeadings[section]);
+                head.setText(Character.sectionHeadings[section]);
                 TextViewCompat.setTextAppearance(head, androidx.appcompat.R.style.Base_TextAppearance_AppCompat_Subhead);
 
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -201,7 +158,7 @@ public class EditCharacterFragment extends DialogFragment {
 
                         for(AttributeInfo stat : stats)
                         {
-                            stat.setValue(getAttrOnChar(character, stat.for_attr));
+                            stat.setValue(character.getAttr(stat.for_attr));
                         }
                     });
                 }
@@ -232,13 +189,19 @@ public class EditCharacterFragment extends DialogFragment {
 
                         newCharacter.name = txtName.getText().toString();
                         newCharacter.archetype = txtClass.getText().toString();
-                        newCharacter.level = Integer.parseInt(txtLevel.getText().toString());
+                        try {
+                            newCharacter.level = Integer.parseInt(txtLevel.getText().toString());
+                        }
+                        catch (Exception e)
+                        {
+                            newCharacter.level = 0;
+                        }
                         newCharacter.destructive_trance = checkHasDT.isChecked();
                         newCharacter.vicious_strike = checkHasVS.isChecked();
 
                         for(AttributeInfo stat : stats)
                         {
-                            setAttrOnChar(newCharacter, stat.for_attr, stat.value);
+                            newCharacter.setAttr(stat.for_attr, stat.value);
                         }
 
                         if(already_exists)
@@ -268,108 +231,5 @@ public class EditCharacterFragment extends DialogFragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private int getAttrOnChar(Character character, Attribute attr)
-    {
-        switch (attr)
-        {
-            case Agility:
-                return character.agility;
-            case Fortitude:
-                return character.fortitude;
-            case Might:
-                return character.might;
-            case Learning:
-                return character.learning;
-            case Logic:
-                return character.logic;
-            case Perception:
-                return character.perception;
-            case Will:
-                return character.will;
-            case Deception:
-                return character.deception;
-            case Persuasion:
-                return character.persuasion;
-            case Presence:
-                return character.presence;
-            case Alteration:
-                return character.alteration;
-            case Creation:
-                return character.creation;
-            case Energy:
-                return character.energy;
-            case Entropy:
-                return character.entropy;
-            case Influence:
-                return character.influence;
-            case Movement:
-                return character.movement;
-            case Prescience:
-                return character.prescience;
-            case Protection:
-                return character.protection;
-        }
-        return 0;
-    }
 
-    private void setAttrOnChar(Character character, Attribute attr, int value)
-    {
-        switch (attr)
-        {
-            case Agility:
-                character.agility = value;
-                break;
-            case Fortitude:
-                character.fortitude = value;
-                break;
-            case Might:
-                character.might = value;
-                break;
-            case Learning:
-                character.learning = value;
-                break;
-            case Logic:
-                character.logic = value;
-                break;
-            case Perception:
-                character.perception = value;
-                break;
-            case Will:
-                character.will = value;
-                break;
-            case Deception:
-                character.deception = value;
-                break;
-            case Persuasion:
-                character.persuasion = value;
-                break;
-            case Presence:
-                character.presence = value;
-                break;
-            case Alteration:
-                character.alteration = value;
-                break;
-            case Creation:
-                character.creation = value;
-                break;
-            case Energy:
-                character.energy = value;
-                break;
-            case Entropy:
-                character.entropy = value;
-                break;
-            case Influence:
-                character.influence = value;
-                break;
-            case Movement:
-                character.movement = value;
-                break;
-            case Prescience:
-                character.prescience = value;
-                break;
-            case Protection:
-                character.protection = value;
-                break;
-        }
-    }
 }
