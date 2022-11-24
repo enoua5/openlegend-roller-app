@@ -7,4 +7,9 @@
     <string name="attributes">Attributes</string>
     <string name="roll">Roll</string>
     <string name="reimport">Re-import as copy</string>
+    <string name="attribute_score">Attribute Score</string>
+    <string name="advantage">Advantage</string>
+    <string name="ad_hoc_damage">Ad hoc damage (no d20)</string>
+    <string name="destructive_trance">Destructive Trance</string>
+    <string name="vicious_strike">Vicious Strike</string>
 </resources>

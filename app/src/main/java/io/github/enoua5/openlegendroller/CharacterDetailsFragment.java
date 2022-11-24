@@ -107,6 +107,30 @@ public class CharacterDetailsFragment extends DialogFragment {
 
             attr.value_display = attr_view.findViewById(R.id.attribute_value);
 
+            Button roll_btn = attr_view.findViewById(R.id.roll_btn);
+            CharacterDetailsFragment outside_this = this;
+            roll_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("attr_score", attr.value);
+                    bundle.putBoolean("has_dt", character.destructive_trance);
+                    bundle.putBoolean("has_vs", character.vicious_strike);
+                    bundle.putString("attr_name", attr.for_attr.name());
+
+                    DiceRollFragment diceRollFragment = new DiceRollFragment();
+                    diceRollFragment.setArguments(bundle);
+
+                    AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                    activity.getSupportFragmentManager()
+                            .beginTransaction()
+                            .add(android.R.id.content, diceRollFragment)
+                            .addToBackStack(null)
+                            .commit()
+                    ;
+                }
+            });
+
             attr_list.addView(attr_view);
         }
 
@@ -124,7 +148,6 @@ public class CharacterDetailsFragment extends DialogFragment {
         {
             char_pk = bundle.getInt("char_pk");
 
-            // ALL HAIL THE TRIANGLE OF DOOM
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -186,6 +209,7 @@ public class CharacterDetailsFragment extends DialogFragment {
         switch(item.getItemId())
         {
             case android.R.id.home:
+                getActivity().getSupportFragmentManager().popBackStack();
                 dismiss();
                 break;
             case R.id.menu_delete:
@@ -205,6 +229,7 @@ public class CharacterDetailsFragment extends DialogFragment {
                                                    .characterDAO()
                                                    .delete(character)
                                         ;
+
                                         dismiss();
                                     }
                                 }).start();
@@ -229,6 +254,7 @@ public class CharacterDetailsFragment extends DialogFragment {
                         .addToBackStack(null)
                         .commit()
                 ;
+                getActivity().getSupportFragmentManager().popBackStack();
                 dismiss();
 
                 break;

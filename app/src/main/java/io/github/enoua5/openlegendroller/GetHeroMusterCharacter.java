@@ -15,9 +15,6 @@ import java.util.Map;
 
 public class GetHeroMusterCharacter extends AsyncTask<String, Integer, String> {
 
-    // TODO check if an unedited version of the character already exists
-    // If so, prompt the user asking if they want to save another copy, overwrite theirs, or cancel
-
     private String rawJSON;
     private String char_id;
     private  OnCharacterImport emitter;
