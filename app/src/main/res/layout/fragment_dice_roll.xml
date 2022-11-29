@@ -101,8 +101,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="--"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                android:textSize="42sp"
                 android:textAlignment="center"/>
+
+            <LinearLayout
+                android:id="@+id/dice_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

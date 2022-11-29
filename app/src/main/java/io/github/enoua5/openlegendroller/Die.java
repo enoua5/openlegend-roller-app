@@ -1,5 +1,6 @@
 package io.github.enoua5.openlegendroller;
 
+import android.util.Log;
 import android.util.Pair;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class Die implements Comparable<Die> {
     {
         value = rng.nextInt(max) + 1;
 
-        if((value == max) || (destructive_trance && value - 1 == max))
+        if((value == max) || (destructive_trance && value + 1 == max))
             crit = true;
 
         return value;
@@ -36,10 +37,10 @@ public class Die implements Comparable<Die> {
     public int compareTo(Die other) {
         if(generation != other.generation)
             return generation - other.generation;
-        if(max != other.max)
-            return other.max - max;
         if(dropped != other.dropped)
             return dropped ? 1 : -1;
+        if(max != other.max)
+            return other.max - max;
         return value - other.value;
     }
 
@@ -85,15 +86,20 @@ public class Die implements Comparable<Die> {
             if(die.crit && !die.dropped)
             {
                 Die newDie = new Die(die.max, dt);
+                newDie.generation = generation;
                 if(die.max == 20 && vs)
                 {
                     // vicious strike gives advantage to exploding d20s
                     Die advDie = new Die(die.max, dt);
+                    advDie.generation = generation;
                     if(advDie.value > newDie.value)
-                        newDie = advDie;
+                        newDie.dropped = true;
+                    else
+                        advDie.dropped = true;
+
+                    addition_rolls.add(advDie);
                 }
 
-                newDie.generation = generation;
                 addition_rolls.add(newDie);
             }
         }

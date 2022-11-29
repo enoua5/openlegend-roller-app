@@ -3,14 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_roll_small.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_cloud_download_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_file_copy_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_d10.xml" value="0.22" />
+        <entry key="app/src/main/res/drawable/ic_d20.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_d4.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_d6.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_d8.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_roll.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21406727828746178" />
         <entry key="app/src/main/res/layout/attribute_detail_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/die_display.xml" value="0.25" />
         <entry key="app/src/main/res/layout/edit_attribute.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragement_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_character_details.xml" value="0.1" />

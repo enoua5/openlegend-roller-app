@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,10 +24,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.material.internal.VisibilityAwareImageButton;
+
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class DiceRollFragment extends DialogFragment {
@@ -40,6 +48,7 @@ public class DiceRollFragment extends DialogFragment {
     String[] advantages = new String[]{"-9","-8","-7","-6","-5","-4","-3","-2","-1","0","+1","+2","+3","+4","+5","+6","+7","+8","+9"};
 
 
+    ViewGroup dice_box;
     Spinner score_dropdown, advantage_dropdown;
     TextView title, roll_total;
     CheckBox vs_check, dt_check, ah_check;
@@ -84,6 +93,8 @@ public class DiceRollFragment extends DialogFragment {
 
         roll_button = view.findViewById(R.id.roll_btn);
         roll_button.setOnClickListener(roll_listener);
+
+        dice_box = view.findViewById(R.id.dice_box);
 
 
         Bundle bundle = this.getArguments();
@@ -160,9 +171,65 @@ public class DiceRollFragment extends DialogFragment {
             Log.d("rolling", "Score "+score+", adv: "+advantage);
 
             ArrayList<Die> dice = Die.ol_roll(score, advantage, dt_check.isChecked(), vs_check.isChecked(), ah_check.isChecked());
+            Collections.sort(dice);
             int total = Die.total_of_dice(dice);
 
             roll_total.setText(String.valueOf(total));
+
+            dice_box.removeAllViews();
+            int generation = -1;
+
+            LinearLayout row = null;
+            for(Die die : dice)
+            {
+                if(die.generation != generation)
+                {
+                    generation = die.generation;
+
+                    HorizontalScrollView sv = new HorizontalScrollView(getContext());
+
+                    row = new LinearLayout(getContext());
+                    row.setOrientation(LinearLayout.HORIZONTAL);
+                    sv.setLayoutParams(new HorizontalScrollView.LayoutParams(HorizontalScrollView.LayoutParams.MATCH_PARENT, HorizontalScrollView.LayoutParams.WRAP_CONTENT));
+
+                    sv.addView(row);
+                    dice_box.addView(sv);
+                }
+
+                View die_view = getLayoutInflater().inflate(R.layout.die_display, null);
+
+                TextView value_box = die_view.findViewById(R.id.die_value);
+                value_box.setText(String.valueOf(die.value));
+
+
+                ImageView die_img = die_view.findViewById(R.id.die_image);
+
+                switch(die.max)
+                {
+                    case 4:
+                        die_img.setImageResource(R.drawable.ic_d4);
+                        break;
+                    case 6:
+                        die_img.setImageResource(R.drawable.ic_d6);
+                        break;
+                    case 8:
+                        die_img.setImageResource(R.drawable.ic_d8);
+                        break;
+                    case 10:
+                        die_img.setImageResource(R.drawable.ic_d10);
+                        break;
+                    case 20:
+                        die_img.setImageResource(R.drawable.ic_d20);
+                        break;
+                }
+
+                if(die.dropped)
+                    die_img.setAlpha(0.5f);
+                else if(die.crit)
+                    value_box.setTextColor(getResources().getColor(R.color.crit));
+
+                row.addView(die_view);
+            }
         }
     };
 }

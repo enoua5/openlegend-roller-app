@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/die_image"
+        android:layout_width="24pt"
+        android:layout_height="24pt"
+        android:src="@drawable/ic_d6"/>
+
+    <TextView
+        android:id="@+id/die_value"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignLeft="@+id/die_image"
+        android:layout_alignTop="@+id/die_image"
+        android:layout_alignRight="@+id/die_image"
+        android:layout_alignBottom="@+id/die_image"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="12pt"
+        android:textColor="@color/white"/>
+
+</RelativeLayout>
