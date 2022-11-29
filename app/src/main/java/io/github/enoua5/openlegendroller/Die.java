@@ -129,7 +129,7 @@ public class Die implements Comparable<Die> {
     }
 
     public static final int[][] ATTRIBUTE_DICE = {
-        {1, 20},
+        {0, 0},
         {1, 4},
         {1, 6},
         {1, 8},
