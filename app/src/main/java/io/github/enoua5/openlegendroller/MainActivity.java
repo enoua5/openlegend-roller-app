@@ -45,5 +45,22 @@ public class MainActivity extends AppCompatActivity {
                 ;
             }
         });
+
+        Button roll_button = findViewById(R.id.roll_btn);
+        roll_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+
+                DiceRollFragment diceRollFragment = new DiceRollFragment();
+                diceRollFragment.setArguments(bundle);
+
+                fm.beginTransaction()
+                        .add(android.R.id.content, diceRollFragment)
+                        .addToBackStack(null)
+                        .commit()
+                ;
+            }
+        });
     }
 }
