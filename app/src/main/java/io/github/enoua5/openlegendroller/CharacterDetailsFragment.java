@@ -254,7 +254,6 @@ public class CharacterDetailsFragment extends DialogFragment {
                         .addToBackStack(null)
                         .commit()
                 ;
-                getActivity().getSupportFragmentManager().popBackStack();
                 dismiss();
 
                 break;

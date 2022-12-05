@@ -159,7 +159,7 @@ public class Die implements Comparable<Die> {
             ArrayList<Die> attr_roll = explode_all_dice(roll_nd_adv(n, d, adv, dt), vs, dt);
             if(!ad_hoc)
             {
-                ArrayList<Die> d20_roll = explode_all_dice(roll_nd_adv(1, 20, adv, dt), vs, dt);
+                ArrayList<Die> d20_roll = explode_all_dice(roll_nd_adv(1, 20, 0, dt), vs, dt);
                 d20_roll.addAll(attr_roll);
                 return d20_roll;
             }

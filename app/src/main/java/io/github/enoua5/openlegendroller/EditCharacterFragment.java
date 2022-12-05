@@ -179,6 +179,8 @@ public class EditCharacterFragment extends DialogFragment {
         switch (item.getItemId())
         {
             case android.R.id.home:
+                getActivity().getSupportFragmentManager().popBackStack();
+                getActivity().getSupportFragmentManager().popBackStack();
                 dismiss();
                 break;
             case R.id.menu_save:
