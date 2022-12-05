@@ -1,19 +1,20 @@
 package io.github.enoua5.openlegendroller;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
     FragmentManager fm;
-
-    private AppBarConfiguration appBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,5 +63,27 @@ public class MainActivity extends AppCompatActivity {
                 ;
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.menuLicense:
+                fm.beginTransaction()
+                        .add(android.R.id.content, new LegalFragment())
+                        .addToBackStack(null)
+                        .commit()
+                ;
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
