@@ -44,7 +44,7 @@ public class DiceRollFragment extends DialogFragment {
 
     int score = 0;
     int advantage = 0;
-    String[] scores = new String[]{"0", "1 (1d4)", "2 (1d6)", "3 (1d8)", "4 (1d10)", "5 (2d6)", "6 (2d8)", "7 (2d10)", "8 (3d8)", "9 (3d10)", "10 (4d8)"};
+    String[] scores = new String[]{"0 (no bonus dice)", "1 (1d4)", "2 (1d6)", "3 (1d8)", "4 (1d10)", "5 (2d6)", "6 (2d8)", "7 (2d10)", "8 (3d8)", "9 (3d10)", "10 (4d8)"};
     String[] advantages = new String[]{"-9","-8","-7","-6","-5","-4","-3","-2","-1","0","+1","+2","+3","+4","+5","+6","+7","+8","+9"};
 
 
@@ -125,7 +125,6 @@ public class DiceRollFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         return dialog;
     }
@@ -176,11 +175,13 @@ public class DiceRollFragment extends DialogFragment {
             int total = Die.total_of_dice(dice);
 
             roll_total.setText(String.valueOf(total));
+            roll_total.setContentDescription(total + " total rolled");
 
             dice_box.removeAllViews();
             int generation = -1;
 
             LinearLayout row = null;
+            int count_in_row = 1;
             for(Die die : dice)
             {
                 if(die.generation != generation)
@@ -197,6 +198,8 @@ public class DiceRollFragment extends DialogFragment {
                     dice_box.addView(sv);
                 }
 
+                String accessibleText = die.value+" rolled on d";
+
                 View die_view = getLayoutInflater().inflate(R.layout.die_display, null);
 
                 TextView value_box = die_view.findViewById(R.id.die_value);
@@ -209,26 +212,37 @@ public class DiceRollFragment extends DialogFragment {
                 {
                     case 4:
                         die_img.setImageResource(R.drawable.ic_d4);
+                        accessibleText += "4";
                         break;
                     case 6:
                         die_img.setImageResource(R.drawable.ic_d6);
+                        accessibleText += "6";
                         break;
                     case 8:
                         die_img.setImageResource(R.drawable.ic_d8);
+                        accessibleText += "8";
                         break;
                     case 10:
                         die_img.setImageResource(R.drawable.ic_d10);
+                        accessibleText += "10";
                         break;
                     case 20:
                         die_img.setImageResource(R.drawable.ic_d20);
+                        accessibleText += "20";
                         break;
                 }
 
-                if(die.dropped)
+                if(die.dropped) {
+                    accessibleText = "Dropped die, "+accessibleText;
                     die_img.setAlpha(0.5f);
-                else if(die.crit)
+                    value_box.setAlpha(0.5f);
+                }
+                else if(die.crit) {
+                    accessibleText = "Exploded die, "+accessibleText;
                     value_box.setTextColor(getResources().getColor(R.color.crit));
+                }
 
+                die_view.setContentDescription(accessibleText);
                 row.addView(die_view);
             }
         }

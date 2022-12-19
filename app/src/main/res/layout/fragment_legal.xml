@@ -37,11 +37,13 @@
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
                 android:adjustViewBounds="true"
+                android:contentDescription="Open Legend Licensed Product logo"
                 android:src="@drawable/open_legend_licensed_logo_gold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="18sp"
                 android:text="@string/legal"/>
 
             <TextView
@@ -49,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text="The full-text Open Legend Community License can be found at  http://openlegendrpg.com/community-license ."
                 android:layout_marginTop="30sp"
+                android:textSize="18sp"
                 android:autoLink="web"/>
         </LinearLayout>
 

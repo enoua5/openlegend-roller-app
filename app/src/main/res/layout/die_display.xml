@@ -5,8 +5,8 @@
 
     <ImageView
         android:id="@+id/die_image"
-        android:layout_width="24pt"
-        android:layout_height="24pt"
+        android:layout_width="48sp"
+        android:layout_height="48sp"
         android:src="@drawable/ic_d6"/>
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_alignBottom="@+id/die_image"
         android:gravity="center"
         android:text="0"
-        android:textSize="12pt"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="24sp" />
 
 </RelativeLayout>

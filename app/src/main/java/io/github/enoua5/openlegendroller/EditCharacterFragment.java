@@ -183,7 +183,6 @@ public class EditCharacterFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-        setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         return dialog;
     }

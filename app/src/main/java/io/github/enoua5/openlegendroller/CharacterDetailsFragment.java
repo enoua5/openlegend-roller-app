@@ -108,6 +108,7 @@ public class CharacterDetailsFragment extends DialogFragment {
             attr.value_display = attr_view.findViewById(R.id.attribute_value);
 
             Button roll_btn = attr_view.findViewById(R.id.roll_btn);
+            roll_btn.setContentDescription("Roll "+attr.for_attr.name());
             CharacterDetailsFragment outside_this = this;
             roll_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -212,7 +213,6 @@ public class CharacterDetailsFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         return dialog;
     }
@@ -271,7 +271,7 @@ public class CharacterDetailsFragment extends DialogFragment {
 
                  */
                 editCharacterFragment.show(getParentFragmentManager(), null);
-                dismiss();
+                //dismiss();
 
                 break;
             case R.id.menu_copy:

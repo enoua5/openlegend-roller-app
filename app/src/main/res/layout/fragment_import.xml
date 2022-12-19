@@ -28,7 +28,8 @@
             android:id="@+id/import_hero_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="pregen-fantasy1"/>
+            android:textSize="21sp"
+            android:hint="Character ID, such as pregen-fantasy1"/>
 
         <Button
             android:layout_width="wrap_content"

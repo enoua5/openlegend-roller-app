@@ -92,6 +92,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="--"
+                android:contentDescription="You have not rolled yet"
+                android:accessibilityLiveRegion="polite"
                 android:textSize="42sp"
                 android:textAlignment="center"/>
 
