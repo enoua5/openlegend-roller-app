@@ -161,6 +161,7 @@ public class CharacterDetailsFragment extends DialogFragment {
                         public void run() {
 
                             txtName.setText(character.name);
+                            toolbar.setTitle(character.name+" character sheet");
                             txtLevel.setText("Level "+character.level);
                             txtClass.setText(character.archetype+"");
 
@@ -206,7 +207,9 @@ public class CharacterDetailsFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
         return dialog;
     }
 
@@ -253,13 +256,17 @@ public class CharacterDetailsFragment extends DialogFragment {
                 EditCharacterFragment editCharacterFragment = new EditCharacterFragment();
                 editCharacterFragment.setArguments(bundle);
 
-                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+
+                /*
                 activity.getSupportFragmentManager()
                         .beginTransaction()
                         .add(android.R.id.content, editCharacterFragment)
                         .addToBackStack(null)
                         .commit()
                 ;
+
+                 */
+                editCharacterFragment.show(getParentFragmentManager(), null);
                 dismiss();
 
                 break;
@@ -367,5 +374,17 @@ public class CharacterDetailsFragment extends DialogFragment {
 
             }
         });
+    }
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null)
+        {
+            int width = ViewGroup.LayoutParams.MATCH_PARENT;
+            int height = ViewGroup.LayoutParams.MATCH_PARENT;
+            dialog.getWindow().setLayout(width, height);
+        }
     }
 }

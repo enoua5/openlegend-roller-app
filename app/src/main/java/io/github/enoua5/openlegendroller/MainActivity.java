@@ -39,28 +39,35 @@ public class MainActivity extends AppCompatActivity {
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 fm.beginTransaction()
-                        .add(android.R.id.content, new EditCharacterFragment())
+                        .replace(android.R.id.content, new EditCharacterFragment())
                         .addToBackStack(null)
                         .commit()
                 ;
+                 */
+                EditCharacterFragment editCharacterFragment = new EditCharacterFragment();
+                editCharacterFragment.show(fm, null);
             }
         });
 
         Button roll_button = findViewById(R.id.roll_btn);
         roll_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View btn) {
                 Bundle bundle = new Bundle();
 
                 DiceRollFragment diceRollFragment = new DiceRollFragment();
                 diceRollFragment.setArguments(bundle);
 
+                /*
                 fm.beginTransaction()
-                        .add(android.R.id.content, diceRollFragment)
+                        .replace(android.R.id.content, diceRollFragment)
                         .addToBackStack(null)
                         .commit()
                 ;
+                */
+                diceRollFragment.show(fm, null);
             }
         });
     }
@@ -77,11 +84,14 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.menuLicense:
+                /*
                 fm.beginTransaction()
-                        .add(android.R.id.content, new LegalFragment())
+                        .replace(android.R.id.content, new LegalFragment())
                         .addToBackStack(null)
                         .commit()
                 ;
+                 */
+                new LegalFragment().show(fm, null);
                 break;
         }
         return super.onOptionsItemSelected(item);

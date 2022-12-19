@@ -126,6 +126,8 @@ public class DiceRollFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
         return dialog;
     }
 
@@ -232,4 +234,16 @@ public class DiceRollFragment extends DialogFragment {
             }
         }
     };
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null)
+        {
+            int width = ViewGroup.LayoutParams.MATCH_PARENT;
+            int height = ViewGroup.LayoutParams.MATCH_PARENT;
+            dialog.getWindow().setLayout(width, height);
+        }
+    }
 }

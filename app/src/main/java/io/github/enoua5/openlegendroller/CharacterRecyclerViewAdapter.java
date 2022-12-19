@@ -97,12 +97,15 @@ public class CharacterRecyclerViewAdapter extends RecyclerView.Adapter<Character
                     characterDetailsFragment.setArguments(bundle);
 
                     AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                    /*
                     activity.getSupportFragmentManager()
                             .beginTransaction()
                             .add(android.R.id.content, characterDetailsFragment)
                             .addToBackStack(null)
                             .commit()
                     ;
+                    */
+                    characterDetailsFragment.show(activity.getSupportFragmentManager(), null);
                 }
             });
         }

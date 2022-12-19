@@ -1,8 +1,10 @@
 package io.github.enoua5.openlegendroller;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -18,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -109,6 +112,7 @@ public class EditCharacterFragment extends DialogFragment {
             attr.value_display = attr_view.findViewById(R.id.attribute_value);
 
             Button btn_inc = attr_view.findViewById(R.id.attribute_increment);
+            btn_inc.setContentDescription("Increase "+attr.for_attr.name());
             btn_inc.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -117,6 +121,7 @@ public class EditCharacterFragment extends DialogFragment {
             });
 
             Button btn_dec = attr_view.findViewById(R.id.attribute_decrement);
+            btn_dec.setContentDescription("Decrease "+attr.for_attr.name());
             btn_dec.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -136,7 +141,6 @@ public class EditCharacterFragment extends DialogFragment {
         }
         else
         {
-            toolbar.setTitle("Edit character");
             already_exists = true;
 
             int char_pk = bundle.getInt("char_pk");
@@ -151,6 +155,7 @@ public class EditCharacterFragment extends DialogFragment {
 
                     getActivity().runOnUiThread(() ->{
                         txtName.setText(character.name);
+                        toolbar.setTitle("Edit "+character.name);
                         txtClass.setText(character.archetype);
                         txtLevel.setText(String.valueOf(character.level));
                         checkHasDT.setChecked(character.destructive_trance);
@@ -172,6 +177,28 @@ public class EditCharacterFragment extends DialogFragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         menu.clear();
         getActivity().getMenuInflater().inflate(R.menu.menu_edit_character, menu);
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        return dialog;
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null)
+        {
+            int width = ViewGroup.LayoutParams.MATCH_PARENT;
+            int height = ViewGroup.LayoutParams.MATCH_PARENT;
+            dialog.getWindow().setLayout(width, height);
+        }
     }
 
     @Override
