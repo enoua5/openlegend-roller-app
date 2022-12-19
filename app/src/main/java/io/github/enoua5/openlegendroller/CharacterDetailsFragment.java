@@ -121,6 +121,7 @@ public class CharacterDetailsFragment extends DialogFragment {
                     DiceRollFragment diceRollFragment = new DiceRollFragment();
                     diceRollFragment.setArguments(bundle);
 
+                    /*
                     AppCompatActivity activity = (AppCompatActivity) view.getContext();
                     activity.getSupportFragmentManager()
                             .beginTransaction()
@@ -128,6 +129,9 @@ public class CharacterDetailsFragment extends DialogFragment {
                             .addToBackStack(null)
                             .commit()
                     ;
+                     */
+
+                    diceRollFragment.show(getParentFragmentManager(), null);
                 }
             });
 

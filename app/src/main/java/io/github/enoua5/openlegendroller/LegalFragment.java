@@ -28,6 +28,7 @@ public class LegalFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_legal, container, false);
 
         Toolbar toolbar = view.findViewById(R.id.legalToolbar);
+        toolbar.setTitle("Open Legend license");
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
         ActionBar actionBar = activity.getSupportActionBar();

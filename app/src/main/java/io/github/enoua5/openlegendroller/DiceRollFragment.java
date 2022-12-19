@@ -88,7 +88,6 @@ public class DiceRollFragment extends DialogFragment {
 
         ah_check.setChecked(false);
 
-        title = view.findViewById(R.id.roll_name);
         roll_total = view.findViewById(R.id.roll_total);
 
         roll_button = view.findViewById(R.id.roll_btn);
@@ -107,7 +106,7 @@ public class DiceRollFragment extends DialogFragment {
             boolean destructive_trance = bundle.getBoolean("has_dt", false);
             dt_check.setChecked(destructive_trance);
 
-            title.setText("Roll " + bundle.getString("attr_name", ""));
+            toolbar.setTitle("Roll " + bundle.getString("attr_name", ""));
 
             score_dropdown.setSelection(score);
         }
