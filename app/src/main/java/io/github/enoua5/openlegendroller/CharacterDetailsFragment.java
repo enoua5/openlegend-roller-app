@@ -177,7 +177,7 @@ public class CharacterDetailsFragment extends DialogFragment {
 
                             if(character.heromuster_id == null || character.heromuster_id.isEmpty())
                             {
-                                btn_reimport.setVisibility(View.INVISIBLE);
+                                btn_reimport.setVisibility(View.GONE);
                             }
                             else
                             {

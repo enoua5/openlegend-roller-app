@@ -37,9 +37,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/recyclerView"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
     </androidx.recyclerview.widget.RecyclerView>
+    <TextView
+        android:id="@+id/recyclerViewEmpty"
+        android:text="You don't have any characters yet. Press &quot;Add&quot; or &quot;Import&quot; to add one."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 </LinearLayout>

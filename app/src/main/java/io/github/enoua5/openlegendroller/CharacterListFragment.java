@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import io.github.enoua5.openlegendroller.db.Character;
 
@@ -23,6 +25,7 @@ public class CharacterListFragment extends Fragment {
 
     View view;
     private RecyclerView recyclerView;
+    private TextView emptyNotice;
     private CharacterRecyclerViewAdapter characterRecyclerViewAdapter;
     private int columnCount = 1;
 
@@ -32,6 +35,7 @@ public class CharacterListFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_main, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
+        emptyNotice = view.findViewById(R.id.recyclerViewEmpty);
         return view;
     }
 
@@ -64,6 +68,17 @@ public class CharacterListFragment extends Fragment {
                     public void onChanged(List<Character> characters) {
                         if(characters != null)
                             characterRecyclerViewAdapter.addItems(characters);
+
+                        if(characterRecyclerViewAdapter.getItemCount() == 0)
+                        {
+                            recyclerView.setVisibility(View.GONE);
+                            emptyNotice.setVisibility(View.VISIBLE);
+                        }
+                        else
+                        {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyNotice.setVisibility(View.GONE);
+                        }
                     }
                 });
     }

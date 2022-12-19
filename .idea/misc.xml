@@ -19,8 +19,9 @@
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/die_display.xml" value="0.25" />
         <entry key="app/src/main/res/layout/edit_attribute.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/empty_character_list.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragement_main.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_character_details.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_character_details.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_character_list.xml" value="0.1962890625" />
         <entry key="app/src/main/res/layout/fragment_dice_roll.xml" value="0.2892857142857143" />
         <entry key="app/src/main/res/layout/fragment_edit_character.xml" value="0.22" />

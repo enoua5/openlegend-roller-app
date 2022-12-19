@@ -24,6 +24,8 @@
         android:height="@dimen/attribute_adjust_button_size"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:textStyle="bold"
+        android:textSize="24sp"
         android:text="-"/>
 
     <TextView
@@ -43,5 +45,6 @@
         android:height="@dimen/attribute_adjust_button_size"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:textSize="24sp"
         android:text="+"/>
 </LinearLayout>

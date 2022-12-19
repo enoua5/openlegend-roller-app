@@ -1,6 +1,7 @@
 package io.github.enoua5.openlegendroller;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ public class CharacterRecyclerViewAdapter extends RecyclerView.Adapter<Character
 
     public void addItems(List<Character> characters)
     {
+        Log.d("charAdd", ""+this.getItemCount());
         this.characterList.clear();
         this.characterList.addAll(characters);
         notifyDataSetChanged();
@@ -59,8 +61,7 @@ public class CharacterRecyclerViewAdapter extends RecyclerView.Adapter<Character
     @Override
     public CharacterRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recycler_item, parent, false)
-                ;
+                    .inflate(R.layout.recycler_item, parent, false);
 
         return new ViewHolder(view);
     }
@@ -75,17 +76,16 @@ public class CharacterRecyclerViewAdapter extends RecyclerView.Adapter<Character
     @Override
     public void onBindViewHolder(@NonNull CharacterRecyclerViewAdapter.ViewHolder holder, int position) {
         final Character character = characterList.get(position);
-        if(character != null)
-        {
+        if(character != null) {
             holder.characterNameBox.setText(character.name);
-            holder.characterLevelBox.setText("Level "+character.level);
+            holder.characterLevelBox.setText("Level " + character.level);
             holder.characterClassBox.setText(character.archetype);
             holder.updateTimeBox.setText(getDateString(character.last_updated));
             holder.editIcon.setImageResource(
                     character.edited_in_app ?
-                        android.R.drawable.ic_menu_edit
-                        :
-                        R.drawable.ic_baseline_cloud_download_24
+                            android.R.drawable.ic_menu_edit
+                            :
+                            R.drawable.ic_baseline_cloud_download_24
             );
 
             holder.root.setOnClickListener(new View.OnClickListener() {
