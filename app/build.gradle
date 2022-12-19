@@ -3,6 +3,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/home/iota/keystores/android/ol-roller-upload.jks')
+            storePassword 'SudddenlyWorkOrCook12'
+            keyAlias 'what'
+            keyPassword 'SuddenlyWorkOrCook12'
+        }
+    }
     compileSdk 32
 
     defaultConfig {
@@ -13,11 +21,13 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.debug
     }
 
     buildTypes {
         release {
             minifyEnabled false
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

@@ -156,32 +156,38 @@ public class CharacterDetailsFragment extends DialogFragment {
                             .getById(char_pk)
                     ;
 
-                    txtName.setText(character.name);
-                    txtLevel.setText("Level "+character.level);
-                    txtClass.setText(character.archetype+"");
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
-                    for(AttributeInfo stat : stats)
-                    {
-                        stat.setValue(character.getAttr(stat.for_attr));
-                    }
-                    
-                    
-                    txtVS.setText((character.vicious_strike ? "Has" : "Does not have") + " Vicious Strike");
-                    txtDT.setText((character.destructive_trance? "Has" : "Does not have") + " Destructive Trance");
+                            txtName.setText(character.name);
+                            txtLevel.setText("Level "+character.level);
+                            txtClass.setText(character.archetype+"");
 
-
-
-                    if(character.heromuster_id == null || character.heromuster_id.isEmpty())
-                    {
-                        btn_reimport.setVisibility(View.INVISIBLE);
-                    }
-                    else
-                    {
-                        btn_reimport.setVisibility(View.VISIBLE);
+                            for(AttributeInfo stat : stats)
+                            {
+                                stat.setValue(character.getAttr(stat.for_attr));
+                            }
 
 
-                        setReimportButton(btn_reimport);
-                    }
+                            txtVS.setText((character.vicious_strike ? "Has" : "Does not have") + " Vicious Strike");
+                            txtDT.setText((character.destructive_trance? "Has" : "Does not have") + " Destructive Trance");
+
+
+
+                            if(character.heromuster_id == null || character.heromuster_id.isEmpty())
+                            {
+                                btn_reimport.setVisibility(View.INVISIBLE);
+                            }
+                            else
+                            {
+                                btn_reimport.setVisibility(View.VISIBLE);
+
+
+                                setReimportButton(btn_reimport);
+                            }
+                        }
+                    });
 
                 }
             }).start();
